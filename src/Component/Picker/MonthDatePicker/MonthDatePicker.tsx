@@ -1,9 +1,9 @@
 import styled from '@emotion/native';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import {FlatList, Platform} from 'react-native';
 import Modal from 'react-native-modal';
-import PickCard from '../UI/PickCard';
+import PickCard from '../PickCard/PickCard';
 import useMonthDateList from './useMonthDateList';
 
 interface Props {
@@ -16,12 +16,16 @@ interface Props {
 const FORMAT = 'YYYY년 MM월';
 
 function MonthDatePicker({visible, onSelect, onClose, value}: Props) {
+  console.log('MonthDatePicker');
   const {list, moreDate} = useMonthDateList();
 
-  const handleSelect = (date: string) => {
-    onSelect(dayjs(date).toDate());
-    onClose();
-  };
+  const handleSelect = useCallback(
+    (date: string) => {
+      onSelect(dayjs(date).toDate());
+      onClose();
+    },
+    [onSelect, onClose],
+  );
 
   return (
     <Modal
@@ -35,7 +39,7 @@ function MonthDatePicker({visible, onSelect, onClose, value}: Props) {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingHorizontal: 10}}
           data={list}
-          keyExtractor={(_, index) => `date-${index}`}
+          keyExtractor={date => `date-${dayjs(date).format('YYYY-MM')}`}
           onEndReached={moreDate}
           renderItem={({item}) => {
             const dateStr = dayjs(item).format(FORMAT);
@@ -69,4 +73,4 @@ const Title = styled.Text`
   margin-vertical: 10px;
 `;
 
-export default MonthDatePicker;
+export default memo(MonthDatePicker);

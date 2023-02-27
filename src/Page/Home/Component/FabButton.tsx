@@ -12,17 +12,7 @@ function FabButton({onPress}: Props) {
   const theme = useTheme();
   return (
     <FloatingButton onPress={onPress}>
-      <Container
-        style={{
-          shadowColor: theme.mode === 'light' ? '#000' : '#fff',
-          shadowOffset: {
-            width: 0,
-            height: 0,
-          },
-          shadowOpacity: 0.3,
-          shadowRadius: 5,
-          elevation: 2,
-        }}>
+      <Container>
         <PlusIcon width={35} height={35} color={theme.primaryColor} />
       </Container>
     </FloatingButton>
@@ -36,6 +26,8 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${({theme}) => theme.backgroundColor};
+  border-width: 1px;
+  border-color: ${({theme}) => theme.primaryColor};
 `;
 
 export default FabButton;

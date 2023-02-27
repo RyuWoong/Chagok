@@ -17,7 +17,7 @@ function MonthlyList({}: Props) {
   }
 
   if (list.length === 0) {
-    return <ListEmptyScreen />;
+    return <ListEmptyScreen style={{justifyContent: 'flex-start'}} />;
   }
 
   return (

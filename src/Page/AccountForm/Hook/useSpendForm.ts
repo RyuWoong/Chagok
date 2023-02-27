@@ -47,9 +47,23 @@ function spendFormReducer(state: typeof initialState, action: ActionType) {
 
 function useSpendForm(init?: typeof initialState) {
   const [state, dispatch] = useReducer(spendFormReducer, init ?? initialState);
-  const setState = (type: keyof typeof initialState, payload: any) =>
-    dispatch({type, payload});
 
-  return {...state, setState};
+  const handleCategory = (value: Category) => {
+    dispatch({type: 'category', payload: value});
+  };
+
+  const handleDate = (value: Date) => {
+    dispatch({type: 'date', payload: value});
+  };
+
+  const handleTitle = (value: string) => {
+    dispatch({type: 'title', payload: value});
+  };
+
+  const handlePrice = (value: string) => {
+    dispatch({type: 'price', payload: Number(value)});
+  };
+
+  return {...state, handleCategory, handleDate, handleTitle, handlePrice};
 }
 export default useSpendForm;

@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import React from 'react';
 import {FlatList, Platform} from 'react-native';
 import Modal from 'react-native-modal';
-import PickCard from '../UI/PickCard';
+import PickCard from '../PickCard/PickCard';
 
 interface Props {
   title: string;

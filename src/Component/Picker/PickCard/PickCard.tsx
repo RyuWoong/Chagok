@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import styled from '@emotion/native';
 import Check from '~/Asset/Image/check.svg';
 import {useTheme} from '@emotion/react';
@@ -11,11 +11,11 @@ type Props = {
 };
 
 function PickCard({item, selected, onSelect}: Props) {
+  console.log(item);
   const theme = useTheme();
-
-  const onPress = () => {
+  const onPress = useCallback(() => {
     onSelect(item);
-  };
+  }, [onSelect, item]);
 
   return (
     <Card>
@@ -58,4 +58,4 @@ const CardLabel = styled.Text`
   color: ${({theme}) => theme.primaryColor};
 `;
 
-export default PickCard;
+export default memo(PickCard);

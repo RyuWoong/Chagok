@@ -1,11 +1,16 @@
 import styled from '@emotion/native';
 import AnimatedLottieView from 'lottie-react-native';
 import React from 'react';
+import {ViewStyle} from 'react-native';
 import Fonts from '~/Style/Fonts';
 
-function ListEmptyScreen() {
+interface Props {
+  style?: ViewStyle;
+}
+
+function ListEmptyScreen({style}: Props) {
   return (
-    <Container>
+    <Container style={style}>
       <AnimatedLottieView
         source={require('~/Asset/Lottie/empty.json')}
         loop={true}

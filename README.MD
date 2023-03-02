@@ -17,3 +17,8 @@
 [패치 노트](https://ryuwoong.notion.site/fce599a7ef01499fa7e648e9858fd5dd)
 
 [App Store](https://apps.apple.com/kr/app/%EC%B0%A8%EA%B3%A1-%EC%86%8C%EB%B9%84%EB%A5%BC-%EA%B8%B0%EB%A1%9D%ED%95%98%EB%8A%94-%EA%B0%80%EA%B3%84%EB%B6%80/id6445810059)
+
+# ToDo
+
+[ ] 반복되는 지출 생성.
+[ ] 년 월 리스트 최적화.

@@ -1,31 +1,36 @@
 import React from 'react';
 import styled from '@emotion/native';
 import LongButton from '~/Component/Button/UI/Long';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import GuestIcon from '~/Asset/Image/guest.svg';
+import {useTheme} from '@emotion/react';
+
+/*
+ *  게스트 로그인 버튼 추가.
+ *
+ */
 
 interface Props {
   setLoading: (value: boolean) => void;
 }
-
-function GoogleLoginButton({setLoading}: Props) {
-  const onSignGoogle = async () => {
-    setLoading(true);
+function GuestLoginButton({setLoading}: Props) {
+  const theme = useTheme();
+  const onSignGuest = async () => {
     try {
-      const {idToken} = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential);
+      setLoading(true);
+      const sign = await auth().signInAnonymously();
+      console.log(sign);
     } catch (error) {
       setLoading(false);
-      console.error('Google Login Error', error);
+      console.error(error);
     }
   };
 
   return (
-    <LongButton onPress={onSignGoogle}>
+    <LongButton onPress={onSignGuest}>
       <Container>
-        <Logo source={require('~/Asset/Image/google.png')} />
-        <Label>Google로 로그인</Label>
+        <GuestIcon width={24} height={24} color={theme.primaryColor} />
+        <Label>손님으로 로그인</Label>
       </Container>
     </LongButton>
   );
@@ -40,7 +45,7 @@ const Container = styled.View`
   width: 100%;
   height: 44px;
   border-width: 1px;
-  border-color: ${({theme}) => theme.borderColor};
+  border-color: ${({theme}) => theme.primaryColor};
   background-color: ${({theme}) => theme.backgroundColor};
 `;
 
@@ -56,7 +61,7 @@ const Label = styled.Text`
   font-size: 14px;
   font-weight: bold;
   margin-right: 20px;
-  color: ${({theme}) => theme.color};
+  color: ${({theme}) => theme.primaryColor};
 `;
 
-export default GoogleLoginButton;
+export default GuestLoginButton;

@@ -10,9 +10,12 @@ function HeaderLeft({children}: Props) {
 }
 
 const Container = styled.View`
+  position: absolute;
+  left: 0;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  z-index: 2;
 `;
 
 export default HeaderLeft;

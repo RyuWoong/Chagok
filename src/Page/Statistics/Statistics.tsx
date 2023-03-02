@@ -21,7 +21,6 @@ function Statistics() {
   const handleSelect = useCallback(
     (event: PieChartSelectEvent) => {
       const entry = event.nativeEvent;
-      console.log(entry);
       if (entry?.label) {
         handleCategory(entry.label as Category);
       } else {

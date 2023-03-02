@@ -16,7 +16,8 @@ const Container = styled.View`
   position: relative;
   flex-direction: row;
   align-items: center;
-  margin: 0 5px;
+  margin: 0 15px;
+  height: 54px;
 `;
 
 Header.Left = HeaderLeft;

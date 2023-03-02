@@ -28,4 +28,15 @@ export const initialData = (email: string) => {
 export const userDB = (uid: string) =>
   firebase.app().database(DB_URL).ref().child('user').child(uid);
 
+export const exitUser = async () => {
+  try {
+    const user = currentUserInfo();
+    const db = userDB(user!.uid);
+    await db.remove();
+    await user?.delete();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const currentUserInfo = () => firebase.auth().currentUser;

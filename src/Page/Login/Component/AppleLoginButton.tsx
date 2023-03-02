@@ -6,21 +6,27 @@ import auth from '@react-native-firebase/auth';
 
 import {useTheme} from '@emotion/react';
 
-interface Props {}
+interface Props {
+  setLoading: (value: boolean) => void;
+}
 
-function AppleLoginButton({}: Props) {
+function AppleLoginButton({setLoading}: Props) {
   const theme = useTheme();
 
   const onSignApple = async () => {
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      // Note: it appears putting FULL_NAME first is important, see issue #293
-      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-    });
+    setLoading(true);
+    try {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        // Note: it appears putting FULL_NAME first is important, see issue #293
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
 
-    const {identityToken, nonce} = appleAuthRequestResponse;
+      const {identityToken, nonce} = appleAuthRequestResponse;
 
-    if (identityToken) {
+      if (!identityToken) {
+        throw new Error('Apple Sign-In failed');
+      }
       // 3). create a Firebase `AppleAuthProvider` credential
       const appleCredential = auth.AppleAuthProvider.credential(
         identityToken,
@@ -28,6 +34,8 @@ function AppleLoginButton({}: Props) {
       );
 
       await auth().signInWithCredential(appleCredential);
+    } catch (error) {
+      setLoading(false);
     }
   };
 

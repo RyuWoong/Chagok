@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Container} from '~/Style/Global';
 
 import styled from '@emotion/native';
@@ -11,6 +11,8 @@ import AppleLoginButton from './Component/AppleLoginButton';
 
 import {Platform} from 'react-native';
 import LottieLogin from './Component/LottieLogin';
+import GuestLoginButton from './Component/GuestLoginButton';
+import LoadingModal from '~/Component/Modal/LoadingModal.tsx/LoadingModal';
 
 type LoginPageProps = NativeStackScreenProps<MainNavigationParamList, 'Login'>;
 
@@ -19,7 +21,7 @@ interface Props {
 }
 
 function Login({navigation}: Props) {
-  const DebounceRef = useRef(false);
+  const [isLoading, setLoading] = useState(false);
 
   const reqSign = useCallback(
     (uid: string, email: string) => {
@@ -29,10 +31,12 @@ function Login({navigation}: Props) {
         if (!data.exists()) {
           fbUserDBContext.set(initialData(email));
         }
-
+        setLoading(false);
         // 메인 화면으로 로그인 처리.
-        navigation.replace('Main');
       });
+      setTimeout(() => {
+        navigation.replace('Main');
+      }, 100);
     },
     [navigation],
   );
@@ -41,19 +45,12 @@ function Login({navigation}: Props) {
     (user: FirebaseAuthTypes.User | null) => {
       // User가 존재하지 않거나,
       // 이미 로그인이 되어 있을 때 Debounce를 걸어 navigation을 여러번 실행시키는 것을 방지합니다.
-      if (!user || DebounceRef.current) {
+      if (!user || !user.uid) {
+        setLoading(false);
         return;
       }
-
-      DebounceRef.current = true;
       const {uid, email} = user;
-
-      if (!uid || !email) {
-        DebounceRef.current = false;
-        return;
-      }
-
-      reqSign(uid, email);
+      reqSign(uid, email ?? 'guest');
     },
     [reqSign],
   );
@@ -71,9 +68,11 @@ function Login({navigation}: Props) {
         <LottieLogin />
       </LottieGroup>
       <ButtonGroup>
-        <GoogleLoginButton />
-        {Platform.OS === 'ios' && <AppleLoginButton />}
+        <GoogleLoginButton setLoading={setLoading} />
+        {Platform.OS === 'ios' && <AppleLoginButton setLoading={setLoading} />}
+        <GuestLoginButton setLoading={setLoading} />
       </ButtonGroup>
+      <LoadingModal visible={isLoading} />
     </Container>
   );
 }

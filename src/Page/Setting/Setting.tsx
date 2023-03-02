@@ -1,18 +1,15 @@
 import React, {useCallback} from 'react';
-import {Alert, Linking, ScrollView} from 'react-native';
+import {Linking, ScrollView} from 'react-native';
 import styled from '@emotion/native';
-import auth from '@react-native-firebase/auth';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {Content} from '~/Style/Global';
 import Fonts from '~/Style/Fonts';
 import {MainNavigationParamList} from '~/Navigation/navigation';
 
-import {AlertModal} from '~/Component/Modal/AlertModal/AlertModal';
-import {useAlert} from '~/Component/Modal/AlertModal';
 import UserInfo from './Component/UserInfo';
 import PolicyButton from './Component/PolicyButton';
-import {currentUserInfo, userDB} from '~/Utils/DB';
+import Menu from '~/Component/Button/Menu/Menu';
 
 type SettingPageProps = NativeStackScreenProps<MainNavigationParamList, 'Main'>;
 interface Props {
@@ -20,48 +17,9 @@ interface Props {
 }
 
 function Setting({navigation}: Props) {
-  const {visible, alert, openAlert, closeAlert} = useAlert();
-
-  const onLogout = useCallback(() => {
-    closeAlert();
-    auth()
-      .signOut()
-      .then(() => {
-        setTimeout(() => {
-          navigation.reset({index: 0, routes: [{name: 'Login'}]});
-        }, 500);
-      });
-  }, [navigation, closeAlert]);
-
-  const onDelete = useCallback(() => {
-    closeAlert();
-    setTimeout(() => {
-      const user = currentUserInfo();
-      const db = userDB(user!.uid);
-      db.remove(async err => {
-        if (err) {
-          Alert.alert(err.message);
-        } else {
-          await user?.delete();
-          navigation.reset({index: 0, routes: [{name: 'Login'}]});
-        }
-      });
-    }, 500);
-  }, [navigation, closeAlert]);
-
-  const doLogout = () => {
-    openAlert({
-      message: '로그아웃 하실래요?',
-      onConfirm: onLogout,
-    });
-  };
-
-  const doExit = () => {
-    openAlert({
-      message: '차곡을 그만 이용 하실려구요?\n모든 내역이 삭제 돼요!',
-      onConfirm: onDelete,
-    });
-  };
+  const goAccount = useCallback(() => {
+    navigation.navigate('Account');
+  }, [navigation]);
 
   const openPrivacyPolicy = useCallback(async () => {
     await Linking.openURL(
@@ -80,16 +38,7 @@ function Setting({navigation}: Props) {
       <UserInfo />
       <Content>
         <ScrollView bounces={false}>
-          <Menu>
-            <MenuTouch onPress={doExit}>
-              <MenuLabel error>회원탈퇴</MenuLabel>
-            </MenuTouch>
-          </Menu>
-          <Menu>
-            <MenuTouch onPress={doLogout}>
-              <MenuLabel>로그아웃</MenuLabel>
-            </MenuTouch>
-          </Menu>
+          <Menu onPress={goAccount}>계정 관리</Menu>
         </ScrollView>
       </Content>
       <Footer>
@@ -105,13 +54,6 @@ function Setting({navigation}: Props) {
           <PolicyButton onPress={openPatchNote}>패치 노트</PolicyButton>
         </PolicyBox>
       </Footer>
-      <AlertModal
-        visible={visible}
-        title={alert?.title}
-        message={alert?.message}
-        onConfirm={alert?.onConfirm}
-        onCancel={closeAlert}
-      />
     </Container>
   );
 }
@@ -119,28 +61,6 @@ function Setting({navigation}: Props) {
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({theme}) => theme.backgroundColor};
-`;
-
-const Menu = styled.View`
-  height: 50px;
-  flex-direction: row;
-  align-items: center;
-  padding-horizontal: 16px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({theme}) => theme.borderColor};
-`;
-
-const MenuTouch = styled.TouchableOpacity`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const MenuLabel = styled.Text<{error?: boolean}>`
-  flex: 1;
-  font-size: 16px;
-  font-weight: 500;
-  color: ${({error, theme}) => (error ? theme.error : theme.color)};
 `;
 
 const Footer = styled.View`

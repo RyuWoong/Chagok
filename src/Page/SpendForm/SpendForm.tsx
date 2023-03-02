@@ -9,7 +9,7 @@ import {dbDayType} from '~/../types/chagok';
 import PrimaryButton from '~/Component/Button/UI/Primary';
 import Header from '~/Component/Header/UI/Header';
 import {AlertModal, useAlert} from '~/Component/Modal/AlertModal';
-import KeyboardView from '~/Component/View/UI/KeyboardView';
+import KeyboardView from '~/Component/View/KeyboardView/KeyboardView';
 import {MainNavigationParamList} from '~/Navigation/navigation';
 import {currentUserInfo, userDB} from '~/Utils/DB';
 import CategoryPickerLabel from './Component/CategoryPickerLabel';
@@ -28,7 +28,7 @@ interface Props {
   route: AccountFormPageProps['route'];
 }
 
-function AccountForm({navigation, route}: Props) {
+function SpendForm({navigation, route}: Props) {
   const theme = useTheme();
   const TITLE = useMemo(
     () => (route.params ? '내역 수정' : '내역 추가'),
@@ -236,4 +236,4 @@ const ButtonGroup = styled.View`
   gap: 10px;
 `;
 
-export default AccountForm;
+export default SpendForm;

@@ -49,8 +49,7 @@ const LogoBox = styled.View`
 `;
 
 const Logo = styled.Image`
-  width: 50px;
-  margin-left: 10px;
+  width: 44px;
   height: undefined;
   aspect-ratio: 1;
 `;

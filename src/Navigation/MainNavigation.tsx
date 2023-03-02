@@ -3,7 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '~/Page/Login/Login';
 import BottomNavigation from './BottomNavigation';
 import {MainNavigationParamList} from './navigation';
-import AccountForm from '~/Page/AccountForm/AccountForm';
+import SpendForm from '~/Page/SpendForm/SpendForm';
+import Account from '~/Page/Account/Account';
 
 const Stack = createNativeStackNavigator<MainNavigationParamList>();
 
@@ -15,9 +16,10 @@ function MainNavigation() {
       <Stack.Screen name="Main" component={BottomNavigation} />
       <Stack.Screen
         name="Form"
-        component={AccountForm}
+        component={SpendForm}
         options={{animation: 'slide_from_bottom', gestureEnabled: false}}
       />
+      <Stack.Screen name="Account" component={Account} />
     </Stack.Navigator>
   );
 }

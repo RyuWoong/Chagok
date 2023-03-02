@@ -12,7 +12,7 @@ function UserInfo() {
       <Logo source={require('~/Asset/Image/logo.png')} />
       <WelcomeBox>
         <Welcome>반가워요!</Welcome>
-        <Email>{user?.email?.split('@')[0]}님</Email>
+        <Email>{user?.email ? user?.email?.split('@')[0] : '손'}님</Email>
       </WelcomeBox>
       <ModeSwitch />
     </Container>

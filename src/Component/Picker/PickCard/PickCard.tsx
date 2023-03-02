@@ -11,7 +11,6 @@ type Props = {
 };
 
 function PickCard({item, selected, onSelect}: Props) {
-  console.log(item);
   const theme = useTheme();
   const onPress = useCallback(() => {
     onSelect(item);

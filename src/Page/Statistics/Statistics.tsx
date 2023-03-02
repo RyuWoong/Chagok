@@ -17,6 +17,7 @@ function Statistics() {
   const {date, list, handleDate} = useDate();
   const {filterList, category, setBaseList, handleCategory} =
     useAnalyticsList();
+
   const handleSelect = useCallback(
     (event: PieChartSelectEvent) => {
       const entry = event.nativeEvent;

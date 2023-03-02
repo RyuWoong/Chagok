@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/native';
 import {daysType} from '~/../types/chagok';
 import Fonts from '~/Style/Fonts';

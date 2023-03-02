@@ -16,7 +16,6 @@ interface Props {
 const FORMAT = 'YYYY년 MM월';
 
 function MonthDatePicker({visible, onSelect, onClose, value}: Props) {
-  console.log('MonthDatePicker');
   const {list, moreDate} = useMonthDateList();
 
   const handleSelect = useCallback(

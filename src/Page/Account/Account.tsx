@@ -4,10 +4,11 @@ import BackButton from '~/Component/Button/BackButton/BackButton';
 import Header from '~/Component/Header/UI/Header';
 import {AlertModal, useAlert} from '~/Component/Modal/AlertModal';
 import {MainNavigationParamList} from '~/Navigation/navigation';
-import {Container, Content} from '~/Style/Global';
 import {currentUserInfo, exitUser} from '~/Utils/DB';
 import auth from '@react-native-firebase/auth';
 import Menu from '~/Component/Button/Menu/Menu';
+import ContainerView from '~/Component/View/ContainerView/ContainerView';
+import ContentView from '~/Component/View/ContentView/ContentView';
 
 type AccountPageProps = NativeStackScreenProps<
   MainNavigationParamList,
@@ -60,19 +61,19 @@ function Account({navigation}: Props) {
     console.log(isAnonymous);
   }, []);
   return (
-    <Container>
+    <ContainerView>
       <Header>
         <Header.Left>
           <BackButton onPress={() => navigation.goBack()} />
         </Header.Left>
         <Header.Title>계정 관리</Header.Title>
       </Header>
-      <Content>
+      <ContentView>
         <Menu onPress={doExit} error>
           회원 탈퇴
         </Menu>
         <Menu onPress={doLogout}>로그아웃</Menu>
-      </Content>
+      </ContentView>
       <AlertModal
         visible={visible}
         title={alert?.title}
@@ -80,7 +81,7 @@ function Account({navigation}: Props) {
         onConfirm={alert?.onConfirm}
         onCancel={closeAlert}
       />
-    </Container>
+    </ContainerView>
   );
 }
 

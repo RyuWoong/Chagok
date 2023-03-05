@@ -1,5 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Container} from '~/Style/Global';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import styled from '@emotion/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
@@ -12,7 +11,7 @@ import AppleLoginButton from './Component/AppleLoginButton';
 import {Platform} from 'react-native';
 import LottieLogin from './Component/LottieLogin';
 import GuestLoginButton from './Component/GuestLoginButton';
-import LoadingModal from '~/Component/Modal/LoadingModal.tsx/LoadingModal';
+import ContainerView from '~/Component/View/ContainerView/ContainerView';
 
 type LoginPageProps = NativeStackScreenProps<MainNavigationParamList, 'Login'>;
 
@@ -21,7 +20,7 @@ interface Props {
 }
 
 function Login({navigation}: Props) {
-  const [isLoading, setLoading] = useState(false);
+  const debounceRef = useRef(false);
 
   const reqSign = useCallback(
     (uid: string, email: string) => {
@@ -31,12 +30,10 @@ function Login({navigation}: Props) {
         if (!data.exists()) {
           fbUserDBContext.set(initialData(email));
         }
-        setLoading(false);
+        debounceRef.current = false;
         // 메인 화면으로 로그인 처리.
-      });
-      setTimeout(() => {
         navigation.replace('Main');
-      }, 100);
+      });
     },
     [navigation],
   );
@@ -46,7 +43,7 @@ function Login({navigation}: Props) {
       // User가 존재하지 않거나,
       // 이미 로그인이 되어 있을 때 Debounce를 걸어 navigation을 여러번 실행시키는 것을 방지합니다.
       if (!user || !user.uid) {
-        setLoading(false);
+        debounceRef.current = false;
         return;
       }
       const {uid, email} = user;
@@ -58,22 +55,23 @@ function Login({navigation}: Props) {
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       // Firebase로그인이 되거나 로그아웃 되면 동작합니다.
+      if (debounceRef.current) return;
+      debounceRef.current = true;
       handleLogin(user);
     });
   }, [handleLogin]);
 
   return (
-    <Container>
+    <ContainerView>
       <LottieGroup>
         <LottieLogin />
       </LottieGroup>
       <ButtonGroup>
-        <GoogleLoginButton setLoading={setLoading} />
-        {Platform.OS === 'ios' && <AppleLoginButton setLoading={setLoading} />}
-        <GuestLoginButton setLoading={setLoading} />
+        <GoogleLoginButton />
+        {Platform.OS === 'ios' && <AppleLoginButton />}
+        <GuestLoginButton />
       </ButtonGroup>
-      <LoadingModal visible={isLoading} />
-    </Container>
+    </ContainerView>
   );
 }
 

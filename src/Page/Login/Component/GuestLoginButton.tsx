@@ -10,18 +10,13 @@ import {useTheme} from '@emotion/react';
  *
  */
 
-interface Props {
-  setLoading: (value: boolean) => void;
-}
-function GuestLoginButton({setLoading}: Props) {
+interface Props {}
+function GuestLoginButton({}: Props) {
   const theme = useTheme();
   const onSignGuest = async () => {
     try {
-      setLoading(true);
       const sign = await auth().signInAnonymously();
-      console.log(sign);
     } catch (error) {
-      setLoading(false);
       console.error(error);
     }
   };

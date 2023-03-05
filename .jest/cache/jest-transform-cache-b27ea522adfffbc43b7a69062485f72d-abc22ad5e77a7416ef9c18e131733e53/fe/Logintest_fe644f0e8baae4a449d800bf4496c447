@@ -1,0 +1,20 @@
+0354906b0d4b8ff4cfab8fd31b8ca46f
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importDefault(require("react"));
+const react_test_renderer_1 = __importDefault(require("react-test-renderer"));
+const Login_1 = __importDefault(require("./Login"));
+describe('Login Page Test', () => {
+    it('should render correctly', () => {
+        let props;
+        const tree = react_test_renderer_1.default.create(<Login_1.default {...props}/>).toJSON();
+        expect(tree).toMatchSnapshot();
+        // expect(getByText('Apple로 로그인')).toBeTruthy();
+        // expect(getByText('Google로 로그인')).toBeTruthy();
+        // expect(getByText('손님으로 로그인')).toBeTruthy();
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL3J5dXdvb25nL1Byb2dyYW1taW5nL2NoYWdvay9zcmMvUGFnZS9Mb2dpbi9Mb2dpbi50ZXN0LnRzeCIsIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtEQUEwQjtBQUMxQiw4RUFBMkM7QUFDM0Msb0RBQTRCO0FBRTVCLFFBQVEsQ0FBQyxpQkFBaUIsRUFBRSxHQUFHLEVBQUU7SUFDL0IsRUFBRSxDQUFDLHlCQUF5QixFQUFFLEdBQUcsRUFBRTtRQUNqQyxJQUFJLEtBQVUsQ0FBQztRQUNmLE1BQU0sSUFBSSxHQUFHLDZCQUFRLENBQUMsTUFBTSxDQUFDLENBQUMsZUFBSyxDQUFDLElBQUksS0FBSyxDQUFDLEVBQUcsQ0FBQyxDQUFDLE1BQU0sRUFBRSxDQUFDO1FBQzVELE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQyxlQUFlLEVBQUUsQ0FBQztRQUUvQixnREFBZ0Q7UUFDaEQsaURBQWlEO1FBQ2pELDhDQUE4QztJQUNoRCxDQUFDLENBQUMsQ0FBQztBQUNMLENBQUMsQ0FBQyxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9Vc2Vycy9yeXV3b29uZy9Qcm9ncmFtbWluZy9jaGFnb2svc3JjL1BhZ2UvTG9naW4vTG9naW4udGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcbmltcG9ydCByZW5kZXJlciBmcm9tICdyZWFjdC10ZXN0LXJlbmRlcmVyJztcbmltcG9ydCBMb2dpbiBmcm9tICcuL0xvZ2luJztcblxuZGVzY3JpYmUoJ0xvZ2luIFBhZ2UgVGVzdCcsICgpID0+IHtcbiAgaXQoJ3Nob3VsZCByZW5kZXIgY29ycmVjdGx5JywgKCkgPT4ge1xuICAgIGxldCBwcm9wczogYW55O1xuICAgIGNvbnN0IHRyZWUgPSByZW5kZXJlci5jcmVhdGUoPExvZ2luIHsuLi5wcm9wc30gLz4pLnRvSlNPTigpO1xuICAgIGV4cGVjdCh0cmVlKS50b01hdGNoU25hcHNob3QoKTtcblxuICAgIC8vIGV4cGVjdChnZXRCeVRleHQoJ0FwcGxl66GcIOuhnOq3uOyduCcpKS50b0JlVHJ1dGh5KCk7XG4gICAgLy8gZXhwZWN0KGdldEJ5VGV4dCgnR29vZ2xl66GcIOuhnOq3uOyduCcpKS50b0JlVHJ1dGh5KCk7XG4gICAgLy8gZXhwZWN0KGdldEJ5VGV4dCgn7IaQ64uY7Jy866GcIOuhnOq3uOyduCcpKS50b0JlVHJ1dGh5KCk7XG4gIH0pO1xufSk7XG4iXSwidmVyc2lvbiI6M30=

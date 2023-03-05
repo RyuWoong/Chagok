@@ -3,9 +3,9 @@ import {Linking, ScrollView} from 'react-native';
 import styled from '@emotion/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {Content} from '~/Style/Global';
 import Fonts from '~/Style/Fonts';
 import {MainNavigationParamList} from '~/Navigation/navigation';
+import {VERSION} from '@env';
 
 import UserInfo from './Component/UserInfo';
 import PolicyButton from './Component/PolicyButton';
@@ -44,7 +44,7 @@ function Setting({navigation}: Props) {
       <Footer>
         <Wrap>
           <LogoLabel>차곡</LogoLabel>
-          <Version>1.0.1</Version>
+          <Version>{VERSION}</Version>
         </Wrap>
         <CopyRight>RyuWoong © 2023. All rights reserved.</CopyRight>
         <PolicyBox>
@@ -61,6 +61,10 @@ function Setting({navigation}: Props) {
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({theme}) => theme.backgroundColor};
+`;
+
+const Content = styled.View`
+  flex: 1;
 `;
 
 const Footer = styled.View`

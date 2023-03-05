@@ -31,7 +31,7 @@ interface Props {
 function SpendForm({navigation, route}: Props) {
   const theme = useTheme();
   const TITLE = useMemo(
-    () => (route.params ? '내역 수정' : '내역 추가'),
+    () => (route.params ? '소비 수정' : '소비 추가'),
     [route.params],
   );
 
@@ -69,11 +69,9 @@ function SpendForm({navigation, route}: Props) {
     if (!user) {
       throw new Error('유저 정보가 없습니다.');
     }
-    if (isNaN(price)) {
-      throw new Error('금액을 올바르게 입력해주세요.');
-    }
+    console.log(user.uid);
     return user;
-  }, [price]);
+  }, []);
 
   const handleData = () => {
     const user = formCheck();
@@ -137,12 +135,16 @@ function SpendForm({navigation, route}: Props) {
       const db = userDB(user.uid);
       const prevDate = dayjs(route.params!.date);
       const yearMonth = prevDate.format('YYYY-MM');
-      const day = prevDate.format('DD');
-      db.child(`data/${yearMonth}/${day}/${route.params!.id}`).remove(() => {
+      const day = prevDate.format('D');
+      console.log(db.child(`data/${yearMonth}/${day}/${route.params!.id}`));
+      db.child(`data/${yearMonth}/${day}/${route.params!.id}`).remove(err => {
+        if (err) {
+          throw new Error('삭제에 실패했습니다.');
+        }
         navigation.goBack();
       });
     } catch (error: any) {
-      Alert.alert('알림', error.string as string);
+      Alert.alert('알림', error.message as string);
     }
   }, [formCheck, navigation, route.params]);
 
@@ -187,7 +189,7 @@ function SpendForm({navigation, route}: Props) {
       <ButtonGroup>
         {route.params && (
           <PrimaryButton
-            label={'내역 삭제'}
+            label={'소비 삭제'}
             onPress={showAlert}
             backgroundColor={theme.error}
           />

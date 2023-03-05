@@ -50,13 +50,11 @@ function Statistics() {
           sections={filterList ?? []}
           bounces={false}
           ListHeaderComponent={
-            filterList ? (
+            filterList && (
               <>
                 <CategoryCharts list={list} handleSelect={handleSelect} />
                 <StatisticsInfo category={category} filterList={filterList} />
               </>
-            ) : (
-              <></>
             )
           }
           contentContainerStyle={{paddingHorizontal: 20}}

@@ -2,11 +2,12 @@ import styled from '@emotion/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useCallback} from 'react';
 import {MainNavigationParamList} from '~/Navigation/navigation';
-import {Container, Content} from '~/Style/Global';
 import Header from '../../Component/Header/UI/Header';
 import FabButton from './Component/FabButton';
 import Monthly from './Component/Monthly';
 import Fonts from '~/Style/Fonts';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import ContentView from '~/Component/View/ContentView/ContentView';
 
 export type HomePageProps = NativeStackScreenProps<
   MainNavigationParamList,
@@ -33,16 +34,21 @@ function Home({navigation}: Props) {
           </LogoBox>
         </Header.Left>
       </Header>
-      <Content>
+      <ContentView>
         <Monthly>
           <Monthly.Total />
           <Monthly.List />
         </Monthly>
-      </Content>
+      </ContentView>
       <FabButton onPress={goForm} />
     </Container>
   );
 }
+
+const Container = styled(SafeAreaView)`
+  flex: 1;
+  background-color: ${({theme}) => theme.backgroundColor};
+`;
 
 const LogoBox = styled.View`
   padding-horizontal: 10px;

@@ -37,6 +37,7 @@ function ModeSwitch() {
         lottieRef.current.play(90, 90);
       }
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

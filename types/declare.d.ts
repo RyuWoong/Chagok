@@ -8,4 +8,5 @@ declare module '*.svg' {
 declare module '@env' {
   export const DB_URL: string;
   export const WEBCLIENT_ID: string;
+  export const VERSION: string;
 }

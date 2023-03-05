@@ -4,19 +4,15 @@ import LongButton from '~/Component/Button/UI/Long';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
-interface Props {
-  setLoading: (value: boolean) => void;
-}
+interface Props {}
 
-function GoogleLoginButton({setLoading}: Props) {
+function GoogleLoginButton({}: Props) {
   const onSignGoogle = async () => {
-    setLoading(true);
     try {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);
     } catch (error) {
-      setLoading(false);
       console.error('Google Login Error', error);
     }
   };

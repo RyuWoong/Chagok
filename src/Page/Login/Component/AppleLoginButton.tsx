@@ -6,15 +6,12 @@ import auth from '@react-native-firebase/auth';
 
 import {useTheme} from '@emotion/react';
 
-interface Props {
-  setLoading: (value: boolean) => void;
-}
+interface Props {}
 
-function AppleLoginButton({setLoading}: Props) {
+function AppleLoginButton({}: Props) {
   const theme = useTheme();
 
   const onSignApple = async () => {
-    setLoading(true);
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -34,9 +31,7 @@ function AppleLoginButton({setLoading}: Props) {
       );
 
       await auth().signInWithCredential(appleCredential);
-    } catch (error) {
-      setLoading(false);
-    }
+    } catch (error) {}
   };
 
   return (

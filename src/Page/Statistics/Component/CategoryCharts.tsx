@@ -99,7 +99,7 @@ function CategoryCharts({list, handleSelect}: Props) {
         transparentCircleColor={processColor('#f0f0f088')}
         maxAngle={360}
         onSelect={handleSelect}
-        onChange={event => console.log(event.nativeEvent)}
+        chartDescription={{text: ''}}
       />
     </Container>
   );

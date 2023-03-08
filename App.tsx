@@ -10,19 +10,22 @@ import ThemeContext from '~/Utils/Hooks/ThemeContext';
 import MainNavigation from './src/Navigation/MainNavigation';
 import theme from './src/Style/Theme';
 import useTheme from './src/Utils/Hooks/useTheme';
+import {delay} from '~/Utils/Util';
 
 function App() {
   const {ThemeMode, toggleTheme} = useTheme();
 
-  useEffect(() => {
-    // App Start Initialize
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 2000);
-
+  const _init = async () => {
     GoogleSignin.configure({
       webClientId: WEBCLIENT_ID,
     });
+    await delay(2000);
+    SplashScreen.hide();
+  };
+
+  useEffect(() => {
+    // App Start Initialize
+    _init();
   }, []);
 
   return (

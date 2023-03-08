@@ -9,6 +9,7 @@ import auth from '@react-native-firebase/auth';
 import Menu from '~/Component/Button/Menu/Menu';
 import ContainerView from '~/Component/View/ContainerView/ContainerView';
 import ContentView from '~/Component/View/ContentView/ContentView';
+import {delay} from '~/Utils/Util';
 
 type AccountPageProps = NativeStackScreenProps<
   MainNavigationParamList,
@@ -22,24 +23,22 @@ interface Props {
 function Account({navigation}: Props) {
   const {visible, alert, openAlert, closeAlert} = useAlert();
 
-  const onLogout = useCallback(() => {
+  const onLogout = useCallback(async () => {
     try {
       closeAlert();
-      setTimeout(async () => {
-        await auth().signOut();
-        navigation.reset({index: 0, routes: [{name: 'Login'}]});
-      }, 500);
+      await delay(500);
+      await auth().signOut();
+      navigation.reset({index: 0, routes: [{name: 'Login'}]});
     } catch (error) {
       console.log(error);
     }
   }, [navigation, closeAlert]);
 
-  const onDelete = useCallback(() => {
+  const onDelete = useCallback(async () => {
     closeAlert();
-    setTimeout(async () => {
-      await exitUser();
-      navigation.reset({index: 0, routes: [{name: 'Login'}]});
-    }, 300);
+    await delay(500);
+    await exitUser();
+    navigation.reset({index: 0, routes: [{name: 'Login'}]});
   }, [closeAlert, navigation]);
 
   const doLogout = () => {

@@ -18,6 +18,8 @@
 
 [App Store](https://apps.apple.com/kr/app/%EC%B0%A8%EA%B3%A1-%EC%86%8C%EB%B9%84%EB%A5%BC-%EA%B8%B0%EB%A1%9D%ED%95%98%EB%8A%94-%EA%B0%80%EA%B3%84%EB%B6%80/id6445810059)
 
+[Google Play](https://play.google.com/store/apps/details?id=com.ryuwoong.chagok&hl=ko)
+
 # ToDo
 
 - [x] Guest 모드 추가.
